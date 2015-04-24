@@ -12,6 +12,10 @@
 			name: 'Rotoworld Player News',
 			url: 'http://www.rotoworld.com/rss/feed.aspx?sport=nfl&ftype=news&count=12&format=atom',
 			description: 'Rotoworld Player news'
+		},{
+			name: 'Rotoworld Player News',
+			url: 'http://www.nfl.com/rss/rsslanding?searchString=home',
+			description: 'NFL Headlines'
 		}
 	]);
 
@@ -27,12 +31,12 @@
 			FeedLoader.parseFeed('http://www.rotoworld.com/rss/feed.aspx?sport=nfl&ftype=article&count=12&format=atom').then(function(res){
 				$scope.rotoWorld = res.data.responseData.feed.entries;
 			});
-
-			// for (var i = 0; i < rssFeeds.length; i++) {
-			// 	FeedLoader.parseFeed(rssFeeds[i].url).then(function(res){
-			// 		$scope.rotoWorld = res.data.responseData.feed.entries;
-			// 	});
-			// }
+			
+			for (var i = 0; i < rssFeeds.length; i++) {
+			 	FeedLoader.parseFeed(rssFeeds[i].url).then(function(res){
+					$scope.entries = res.data.responseData.feed.entries;
+			 	});
+			}
 
 		};
 
