@@ -13,7 +13,7 @@
 			url: 'http://www.rotoworld.com/rss/feed.aspx?sport=nfl&ftype=news&count=12&format=atom',
 			description: 'Rotoworld Player news'
 		},{
-			name: 'Rotoworld Player News',
+			name: 'NFL Headlines',
 			url: 'http://www.nfl.com/rss/rsslanding?searchString=home',
 			description: 'NFL Headlines'
 		}
@@ -24,20 +24,26 @@
 		console.log('FeedController called.');
 
 		$scope.feeds = rssFeeds;
-
+		
 		$scope.loadFeeds = function() {
 			console.log('loadFeeds called.');
 
-			FeedLoader.parseFeed('http://www.rotoworld.com/rss/feed.aspx?sport=nfl&ftype=article&count=12&format=atom').then(function(res){
-				$scope.rotoWorld = res.data.responseData.feed.entries;
-			});
+			//Closure necessary to keep track of index variable.
+			function callBackCreator(i) {
+				return function(res) {
+					$scope.feeds[i].entries = res.data.responseData.feed.entries;
+				};
+			}
 			
 			for (var i = 0; i < rssFeeds.length; i++) {
-			 	FeedLoader.parseFeed(rssFeeds[i].url).then(function(res){
-					$scope.entries = res.data.responseData.feed.entries;
-			 	});
+				var callBack = callBackCreator(i);
+			 	FeedLoader.parseFeed(rssFeeds[i].url).then(callBack);
 			}
 
+		};
+		
+		$scope.formatDate = function(date) {
+			return new Date(date).toLocaleString();
 		};
 
 	}]);
