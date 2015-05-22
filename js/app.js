@@ -1,6 +1,6 @@
 (function() {
 
-	var app = angular.module('fantasyFeed',[]);
+	var app = angular.module('fantasyFeed',["ngRoute"]);
 
 	//Globals
 	app.value('rssFeeds', [
@@ -18,5 +18,24 @@
 			description: 'NFL Headlines'
 		}
 	]);
+	
+	app.config(function($routeProvider) {
+        $routeProvider
+            .when("/index", {
+                templateUrl: "views/feedView.html",
+                controller: "feedController"
+            })
+            .when("/user/:username", {
+                templateUrl: "user.html",
+                controller: "UserController"
+            })
+            .when("/repo/:username/:reponame", {
+                templateUrl: "repo.html",
+                controller: "RepoController"
+            })
+            .otherwise({
+                redirectTo: "/index"
+            });
+    });
 
 })();

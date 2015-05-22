@@ -2,8 +2,6 @@
 
 	var app = angular.module('fantasyFeed');
 
-	console.log("Got here " + app);
-	
 	app.controller('FeedController', ['rssFeeds', '$scope', 'rssService', function(rssFeeds, $scope, rssService) {
 
 		console.log('FeedController called.');
