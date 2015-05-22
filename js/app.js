@@ -19,40 +19,4 @@
 		}
 	]);
 
-	app.controller('FeedController', ['rssFeeds', '$scope', 'FeedLoaderService', function(rssFeeds, $scope, FeedLoader) {
-
-		console.log('FeedController called.');
-
-		$scope.feeds = rssFeeds;
-		
-		$scope.loadFeeds = function() {
-			console.log('loadFeeds called.');
-
-			//Closure necessary to keep track of index variable.
-			function callBackCreator(i) {
-				return function(res) {
-					$scope.feeds[i].entries = res.data.responseData.feed.entries;
-				};
-			}
-			
-			for (var i = 0; i < rssFeeds.length; i++) {
-				var callBack = callBackCreator(i);
-			 	FeedLoader.parseFeed(rssFeeds[i].url).then(callBack);
-			}
-
-		};
-		
-		$scope.formatDate = function(date) {
-			return new Date(date).toLocaleString();
-		};
-
-	}]);
-
-	app.factory('FeedLoaderService', ['$http', function($http) {
-		return {
-			parseFeed : function(url) {
-				return $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
-			}
-		};
-	}]);
 })();

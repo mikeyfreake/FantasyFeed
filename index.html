@@ -51,12 +51,19 @@
 		</nav>
 
 		<div class="container" ng-controller="FeedController" ng-init="loadFeeds()">
+		
+			<div class="row">
+				<div class="col-md-4">
+					<label>Filter Results:</label> <input type="text" ng-model="entryFilter" placeholder="Player Name, Team, ..."/>
+				</div>
+			</div>
+		<!--<a href="{{entry.link}}" class="list-group-item" ng-repeat="entry in feed.entries | filter: entryFilter" target="_blank">-->
 			<div class="row">
 				<div class="col-md-4" ng-repeat="feed in feeds">
 					<div class="panel panel-primary">
 						<div class="panel-heading">{{feed.name}}</div>
 						<div class="list-group">
-							<a href="{{entry.link}}" class="list-group-item" ng-repeat="entry in feed.entries" target="_blank">
+							<a href="{{entry.link}}" class="list-group-item" ng-repeat="entry in feed.entries | filter: entryFilter" target="_blank">
 								<h4 class="list-group-item-heading">{{entry.title}}</h4>
 								<p>{{entry.content}}</p>
 								<small>Date: {{formatDate(entry.publishedDate)}}</small>
@@ -85,6 +92,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="https://platform.twitter.com/widgets.js"></script>
 		<script src="js/app.js"></script>
+		<script src="js/services/rssService.js"></script>
+		<script src="js/controllers/feedController.js"></script>
 		
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. 
 		<script>
