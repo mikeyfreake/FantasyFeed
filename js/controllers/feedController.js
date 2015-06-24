@@ -2,11 +2,11 @@
 
 	var app = angular.module('fantasyFeed');
 
-	app.controller('FeedController', ['rssFeeds', '$scope', 'rssService', function(rssFeeds, $scope, rssService) {
+	app.controller('feedController', ['$scope', 'rssService', function($scope, rssService) {
 
-		console.log('FeedController called.');
+		console.log('feedController called.');
 
-		$scope.feeds = rssFeeds;
+		$scope.feeds = rssService.getFeedList();
 		
 		$scope.loadFeeds = function() {
 			console.log('loadFeeds called.');
@@ -18,12 +18,15 @@
 				};
 			};
 			
-			for (var i = 0; i < rssFeeds.length; i++) {
+			var rssFeedList = rssService.getFeedList();
+			for (var i = 0; i < rssFeedList.length; i++) {
 				var callBack = callBackCreator(i);
-			 	rssService.parseFeed(rssFeeds[i].url).then(callBack);
+			 	rssService.parseFeed(rssFeedList[i].url).then(callBack);
 			};
 
 		};
+		
+		
 		
 		$scope.formatDate = function(date) {
 			return new Date(date).toLocaleString();

@@ -3,7 +3,7 @@
 	var app = angular.module('fantasyFeed',["ngRoute"]);
 
 	//Globals
-	app.value('rssFeeds', [
+/* 	app.value('rssFeeds', [
 		{
 			name: 'Rotoworld Articles',
 			url: 'http://www.rotoworld.com/rss/feed.aspx?sport=nfl&ftype=article&count=12&format=atom', 
@@ -17,7 +17,7 @@
 			url: 'http://www.nfl.com/rss/rsslanding?searchString=home',
 			description: 'NFL Headlines'
 		}
-	]);
+	]); */
 	
 	app.config(function($routeProvider) {
         $routeProvider
@@ -25,6 +25,10 @@
                 templateUrl: "views/feedView.html",
                 controller: "feedController"
             })
+			.when("/addFeed", {
+				templateUrl: "views/addFeedView.html",
+				controller: "feedController"
+			})
             .when("/user/:username", {
                 templateUrl: "user.html",
                 controller: "UserController"
