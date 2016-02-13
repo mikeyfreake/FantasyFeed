@@ -26,10 +26,19 @@
 
 		};
 		
-		
-		
 		$scope.formatDate = function(date) {
 			return new Date(date).toLocaleString();
+		};
+		
+		$scope.addFeed = function() {
+			//TODO - validate.
+			//TODO - parse feed name.
+			rssService.addFeed(
+				{
+					league: $scope.league,
+					url: $scope.url
+				}
+			);
 		};
 
 	}]);

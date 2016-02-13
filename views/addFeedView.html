@@ -1,18 +1,25 @@
 <div class="row">
-	<form class="form-horizontal">
+	<form ng-submit="addFeed()">
 		<fieldset>
 			<!-- Form Name -->
 			<legend>New RSS Fantasy Feed</legend>
 
 			<!-- Text input-->
 			<div class="form-group">
-			  <label class="col-md-4 control-label" for="url">URL</label>  
-			  <div class="col-md-5">
-			  <input id="url" name="url" type="text" placeholder="http://..." class="form-control input-md" required="">
-			  <span class="help-block">example: http://www.rotoworld.com/rss/feed.aspx?sport=nfl&amp;ftype=article&amp;count=12&amp;format=atom</span>  
-			  </div>
+				<label for="league">League</label>
+				<select id="league" ng-model="league" class="form-control">
+					<option value="NFL" selected>NFL</option>
+					<option value="MLB">MLB</option>
+					<option value="NHL">NHL</option>
+					<option value="NBA">NBA</option>
+				</select>
 			</div>
-
+			<div class="form-group">
+				<label for="url">URL</label>
+				<input id="url" ng-model="url" type="text" placeholder="http://..." class="form-control" required>
+				<span class="help-block">example: http://www.rotoworld.com/rss/feed.aspx?sport=nfl&amp;ftype=article&amp;count=12&amp;format=atom</span>  
+			</div>
 		</fieldset>
+		<button type="submit" class="btn btn-default">Add Feed</button>
 	</form>
 </div>
